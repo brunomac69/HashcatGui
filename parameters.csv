@@ -1,0 +1,6 @@
+-h; Help
+--help , Help
+--help | grep -i ntlm; Filtrar NTLM
+--potfile-disable; Disable hashcat.potfile to save known hashs
+--debug-mode=1; Ativa o modo de depuração para rastrear as regras usadas
+--debug-file=debug.txt; Arquivo onde as informações de depuração serão salvas (incluindo as regras usadas com sucesso).

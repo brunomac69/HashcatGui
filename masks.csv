@@ -1,0 +1,21 @@
+MODEs -a3 : -a6 : -a7 --> (bruteforce or hibrid)
+~/tools/hashcat/masks/hashcat-default.hcmask
+/user/share/wordlists/
+–i --increment-min 4 --increment-max 8 
+?l; abcdefghijklmnopqrstuvwxyz
+?u; ABCDEFGHIJKLMNOPQRSTUVWXYZ
+?d; 0123456789
+?h; 0123456789abcdef
+?H; 0123456789ABCDEF
+?s; «space»!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+?a; ?l?u?d?s
+?b; 0x00 - 0xff
+?d?d?d?d
+?d?d?d?d?d –i --increment-min 5 --increment-max 8
+?l?l?l?l?l?l --increment --increment-min 6 --increment-max 10
+?u?u?u?u?u?u --increment --increment-min 6 --increment-max 10
+?u?l?l?l?l?l --increment --increment-min 6 --increment-max 10
+-1 abc ?1?d?d?d;Placeholders
+-1 abc -2 xyz  ?1?2?d?d?d?d;Placeholders
+
+

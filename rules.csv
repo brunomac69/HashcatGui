@@ -1,0 +1,63 @@
+<<-- Rule Files -->
+/usr/share/hashcat/rules/best64.rule; T0XlC_3_rule.rule
+/usr/share/hashcat/rules/combinator.rule; T0XlC-insert_00-99_1950-2050_toprules_0_F.rule
+/usr/share/hashcat/rules/d3ad0ne.rule; T0XlC_insert_HTML_entities_0_Z.rule
+/usr/share/hashcat/rules/dive.rule: T0XlC-insert_space_and_special_0_F.rule
+/usr/share/hashcat/rules/generated2.rule; T0XlC-insert_top_100_passwords_1_G.rule
+/usr/share/hashcat/rules/generated.rule; T0XlC.rule
+/usr/share/hashcat/rules/hybrid;  T0XlCv2.rule
+/usr/share/hashcat/rules/Incisive-leetspeak.rule; toggles1.rule
+/usr/share/hashcat/rules/InsidePro-HashManager.rule; toggles2.rule
+/usr/share/hashcat/rules/InsidePro-PasswordsPro.rule;  toggles3.rule
+/usr/share/hashcat/rules/leetspeak.rule; toggles4.rule
+/usr/share/hashcat/rules/oscommerce.rule; toggles5.rule
+/usr/share/hashcat/rules/rockyou-30000.rule; unix-ninja-leetspeak.rule
+<<-- Rules Chars -->
+:;  Do nothing (passthrough);  :;  p@ssW0rd;  p@ssW0rd;  ;  
+l;  Lowercase all letters;  l;  p@ssW0rd;  p@ssw0rd;  ;  
+u;  Uppercase all letters;  u;  p@ssW0rd;  P@SSW0RD;  ;  
+c;  Capitalize the first letter and lower the rest;  c;  p@ssW0rd;  P@ssw0rd;  ;  
+C;  Lowercase first found character, uppercase the rest;  C;  p@ssW0rd;  p@SSW0RD;  ;  
+t;  Toggle the case of all characters in word.;  t;  p@ssW0rd;  P@SSw0RD;  ;  
+TN;  Toggle the case of characters at position N;  T3;  p@ssW0rd;  p@sSW0rd;  *;  
+r;  Reverse the entire word;  r;  p@ssW0rd;  dr0Wss@p;  ;  
+d;  Duplicate entire word;  d;  p@ssW0rd;  p@ssW0rdp@ssW0rd;  ;  
+pN;  Append duplicated word N times;  p2;  p@ssW0rd;  p@ssW0rdp@ssW0rdp@ssW0rd;  ;  
+f;  Duplicate word reversed;  f;  p@ssW0rd;  p@ssW0rddr0Wss@p;  ;  
+{;  Rotate the word left.;  {;  p@ssW0rd;  @ssW0rdp;  ;  
+};  Rotate the word right;  };  p@ssW0rd;  dp@ssW0r;  ;  
+$X;  Append character X to end;  $1$2;  p@ssW0rd;  p@ssW0rd12;  ;  
+^X;  Prepend character X to front;  ^2^1;  p@ssW0rd;  12p@ssW0rd;  ;  
+[;  Delete first character;  [;  p@ssW0rd;  @ssW0rd;  ;  
+];  Delete last character;  ];  p@ssW0rd;  p@ssW0r;  ;  
+DN;  Delete character at position N;  D3;  p@ssW0rd;  p@sW0rd;  *;  
+xNM;  Extract M characters, starting at position N;  x04;  p@ssW0rd;  p@ss;  * #;  
+ONM;  Delete M characters, starting at position N;  O12;  p@ssW0rd;  psW0rd;  *;  
+iNX;  Insert character X at position N;  i4!;  p@ssW0rd;  p@ss!W0rd;  *;  
+oNX;  Overwrite character at position N with X;  o3$;  p@ssW0rd;  p@s$W0rd;  *;  
+'N;  Truncate word at position N;  '6;  p@ssW0rd;  p@ssW0;  *;  
+sXY;  Replace all instances of X with Y;  ss$;  p@ssW0rd;  p@$$W0rd;  ;  
+@X;  Purge all instances of X;  @s;  p@ssW0rd;  p@W0rd;  ;  
+zN;  Duplicate first character N times;  z2;  p@ssW0rd;  ppp@ssW0rd;  ;  
+ZN;  Duplicate last character N times;  Z2;  p@ssW0rd;  p@ssW0rddd;  ;  
+q;  Duplicate every character;  q;  p@ssW0rd;  pp@@ssssWW00rrdd;  ;  
+XNMI;  Insert substring of length M starting from position N of word saved to memory at position I;  lMX428;  p@ssW0rd;  p@ssw0rdw0;  +;  
+4;  Append the word saved to memory to current word;  uMl4;  p@ssW0rd;  p@ssw0rdP@SSW0RD;  +;  
+6;  Prepend the word saved to memory to current word;  rMr6;  p@ssW0rd;  dr0Wss@pp@ssW0rd;  +;  
+M;  Memorize current word;  lMuX084;  p@ssW0rd;  P@SSp@ssw0rdW0RD;  +;  
+<<----Rules used to reject plains-->
+k;  Swap first two characters;  k;  p@ssW0rd;  @pssW0rd;  ;  
+K;  Swap last two characters;  K;  p@ssW0rd;  p@ssW0dr;  ;  
+*NM;  Swap character at position N with character at position M;  *34;  p@ssW0rd;  p@sWs0rd;  ;  *
+LN;  Bitwise shift left character @ N;  L2;  p@ssW0rd;  p@æsW0rd;  ;  *
+RN;  Bitwise shift right character @ N;  R2;  p@ssW0rd;  p@9sW0rd;  ;  *
++N;  Increment character @ N by 1 ascii value;  2;  p@ssW0rd;  p@tsW0rd;  ;  *
+-N;  Decrement character @ N by 1 ascii value;  -1;  p@ssW0rd;  p?ssW0rd;  ;  *
+.N;  Replace character @ N with value at @ N plus 1;  .1;  p@ssW0rd;  psssW0rd;  ;  *
+#,N;  Replace character @ N with value at @ N minus 1;  0,1;  p@ssW0rd;  ppssW0rd;  ;  *
+yN;  Duplicate first N characters;  y2;  p@ssW0rd;  p@p@ssW0rd;  ;  *
+YN;  Duplicate last N characters;  Y2;  p@ssW0rd;  p@ssW0rdrd;  ;  *
+E;  Lower case the whole line, then upper case the first letter and every letter after a space;  E;  p@ssW0rd w0rld;  P@ssw0rd W0rld;  ;  +
+eX;    Lower case the whole line, then upper case the first letter and every letter after a custom separator character;    e-;    p@ssW0rd-w0rld;    P@ssw0rd-W0rld;    ;    +
+3NX;    Toggle case the letter after the Nth instance of a separator char;    30-;    pass-word;    pass-Word;    ;    *
+<<--Using hex bytes in rules-->>;    ;    ;    ;  ;  ;  
