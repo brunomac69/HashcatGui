@@ -30,3 +30,88 @@
 2024-10-11 20:36:47 - hashcat -m 10 -a 0 /user/share/wordlists/ 
 2024-10-11 20:37:21 - hashcat -m 10 -a 6 /user/share/wordlists/ ?l?u 
 2024-10-11 20:41:17 - hashcat -m 10 -a 6 /user/share/wordlists/ ?l?u -o test55 
+2024-10-14 16:30:33 - hashcat ~/tools/hashcat/masks/hex.mask -r /usr/share/hashcat/rules/d3ad0ne.rule 
+2024-10-14 17:22:31 - hashcat -m 140 
+2024-10-14 17:22:35 - hashcat -m 140 -a 3 
+2024-10-14 17:23:39 - hashcat -m 140 -a 3 --gpu-temp-disable 
+2024-10-14 17:29:45 - hashcat -m 140 -a 3 -r xNM --gpu-temp-disable 
+2024-10-14 17:29:55 - hashcat -m 140 -a 3 -1 abc -2 xyz ?1?2?d?d?d?d -r xNM --gpu-temp-disable 
+2024-10-15 09:44:10 - hashcat -m 140 -a 3 ?u?u?u?u?u -r xNM --gpu-temp-disable 
+2024-10-15 09:44:15 - hashcat -m 140 -a 3 ?u?u?u?u?u -r xNM 
+2024-10-15 09:44:26 - hashcat -m 140 -a 3 ?u?u?u?u?u -r xNM 
+2024-10-15 10:12:23 - hashcat -m 40 -a 1 rr rr rrr r -r r -o r rr rr 
+2024-10-15 10:14:40 - hashcat d d d d -r d -o d d d 
+2024-10-15 10:14:44 - hashcat 
+2024-10-15 10:14:45 - hashcat 
+2024-10-15 10:14:45 - hashcat 
+2024-10-15 10:14:53 - hashcat -m 10 -a 3 
+2024-10-15 10:19:06 - hashcat 
+2024-10-15 10:19:10 - hashcat --help 
+2024-10-15 10:19:15 - hashcat --help --potfile-disable 
+2024-10-15 10:24:18 - hashcat -m 10 -a 3 
+2024-10-15 10:24:44 - hashcat -m 10 -a 3 
+2024-10-15 10:25:34 - hashcat 
+2024-10-15 10:25:39 - hashcat 
+2024-10-15 10:25:56 - hashcat -m 10 -a 1 /wl/teste 
+2024-10-15 10:26:31 - hashcat -m 10 -a 3 /wl/teste 
+2024-10-15 10:26:44 - hashcat -m 10 -a 3 /wl/teste /user/share/wordlists/ 
+2024-10-15 10:29:46 - hashcat -m 10 -a 3 /wl/teste /user/share/wordlists/ 
+2024-10-15 14:03:45 - hashcat 
+2024-10-15 14:04:00 - hashcat -m 40 
+2024-10-15 14:16:04 - hashcat 
+2024-10-15 14:16:06 - hashcat /user/share/wordlists/ 
+2024-10-15 14:32:30 - hashcat -m 10 -a 3 werwer werfcc vgvrg gbweqd -r fwf 
+2024-10-15 14:32:45 - hashcat -m 10 -a 3 werwer werfcc vgvrg gbweqd -r fwf 
+2024-10-15 14:32:50 - hashcat -m 10 -a 3 werwer werfcc vgvrg gbweqd -r fwf 
+2024-10-15 14:32:54 - hashcat -m 10 -a 3 werwer werfcc vgvrg gbweqd -r fwf 
+2024-10-15 14:35:12 - hashcat w22 w3 w555 we34 -r xNM -o crack.txt --potfile-disable 
+2024-10-15 14:37:46 - ./combinator3.bin gadf dfd dfbd > wl_result.txt;  combine 3 Wordlists https://github.com/hashcat/hashcat-utils/
+2024-10-15 14:38:58 - ./combinator3.bin fe v f > wl_result.txt
+2024-10-15 14:39:17 - ./combinator3.bin wordlist2 wordlist3 f > wl_result.txt
+2024-10-15 14:39:21 - ./combinator3.bin wordlist2 wordlist3 f > wl_result.txt
+2024-10-15 14:42:49 - python python trainer.py -r _trained_1 -e UTF-8 --coverage 0.2 -t 
+2024-10-15 14:44:50 - hashcat 
+2024-10-15 14:44:54 - python python trainer.py -r _trained_1 -e UTF-8 --coverage 0.2 -t 
+2024-10-15 14:45:00 - python pcfg_guesser.py -r mytrained_1 > result_wordlist.txt
+2024-10-15 14:45:03 - python python trainer.py -r _trained_1 -e UTF-8 --coverage 0.2 -t 
+2024-10-15 14:48:25 - ./combinator3.bin    > wl_result.txt
+2024-10-15 14:48:37 - ./combinator3.bin    {wl4} > wl_result.txt
+2024-10-15 15:43:56 - ./pp64 --pw-max=8 < w2 | hashcat -a-a 3 -m -m 40 hashfile
+2024-10-15 15:52:33 - ./combinator3.bin w1 w2 > wl_result.txt
+2024-10-15 15:53:37 -   INFO:Paceholders  wil be replaced by fields values
+2024-10-15 15:53:56 -   INFO:Paceholders -m 0-a 1 wil be replaced by fields values
+2024-10-15 15:54:35 -   INFO:Paceholders -m 0-a 1hw1w1w1-r r-o o wil be replaced by fields values
+2024-10-15 15:55:24 -   INFO:Paceholders -m 20-a 6hw1w2w3 wil be replaced by fields values
+2024-10-15 15:55:59 - ./pp64 --pw-max=12 < w1 | hashcat -a 6 -m 20 h
+2024-10-15 15:56:14 - ./pp64 --pw-max=12 < w1 | hashcat -a 6 -m 20 hshafile
+2024-10-15 15:56:38 - ./pp64 --pw-max=8 < w1 | hashcat -a 6 -m 20 hshafile
+2024-10-15 15:56:59 - ./pp64 --pw-max=12 < w1 | hashcat -a 6 -m 20 hshafile
+2024-10-15 16:03:30 - ./kwp basecharfile.base keymap.keymap route.txt 
+2024-10-15 16:04:14 -   INFO:Paceholders -m 120 wil be replaced by fields values
+2024-10-15 16:07:01 -   INFO:Paceholders  wil be replaced by fields values (optional)
+2024-10-15 16:36:17 - ./pp64 <  | hashcat -a 0 -m 1000 hash.txt
+2024-10-15 16:36:33 - ./pp64 <  | hashcat -a 3  
+2024-10-15 16:38:03 - echo "313" > 313.route
+2024-10-15 16:39:13 - ./kwp basecharfile.base keymap.keymap route.txt 
+2024-10-15 16:55:41 - ./kwp --help
+2024-10-15 16:55:50 - ./combinator3.bin   > wl_result.txt
+2024-10-15 16:55:53 - hashcat 
+2024-10-15 16:55:55 - ./combinator3.bin    > wl_result.txt
+2024-10-15 16:56:33 - hashcat w1 w1 w2 w3 -r r 
+2024-10-15 16:56:35 - ./combinator3.bin w1 w2 w3 > wl_result.txt
+2024-10-15 17:00:39 - hashcat ~/tools/hashcat/masks/hashcat-default.hcmask 
+2024-10-15 17:00:46 - hashcat -m 20 -a 3 ~/tools/hashcat/masks/hashcat-default.hcmask 
+2024-10-15 17:01:18 - hashcat -m 20 -a 3 //10.0.1.12/Exames4/0_CONCLUIDO/88_24.9GBPCV/VoiceMail_Audio/transcrever/TRANSCRICAO_GERAL_AI_NTP_2.txt ~/tools/hashcat/masks/hashcat-default.hcmask 
+2024-10-15 17:12:54 - hashcat "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/bruteforce.dig" 
+2024-10-15 17:13:19 - hashcat C:/Users/g1990685/Downloads/7z2406-x64.exe 
+2024-10-15 17:13:52 - hashcat C:/Users/g1990685/Downloads/7z2406-x64.exe "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/bruteforce.dig" "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/bruteforce.dig" "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/decryption.dig" -o "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/decryption.dig" 
+2024-10-15 17:14:28 - hashcat -m 30 -a 3 C:/Users/g1990685/Downloads/7z2406-x64.exe "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/bruteforce.dig" "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/bruteforce.dig" "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/decryption.dig" -o "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/decryption.dig" 
+2024-10-15 17:14:36 - hashcat -m 30 -a 3 C:/Users/g1990685/Downloads/7z2406-x64.exe "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/bruteforce.dig" "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/bruteforce.dig" "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/decryption.dig" -o "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/decryption.dig" --debug-mode=1 --debug-file=debug.txt 
+2024-10-15 17:16:26 - ./combinator3.bin "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/bruteforce.dig" "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/bruteforce.dig" > wl_result.txt
+2024-10-15 17:16:29 - hashcat -m 30 -a 3 C:/Users/g1990685/Downloads/7z2406-x64.exe "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/bruteforce.dig" "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/bruteforce.dig" "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/decryption.dig" -o "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/decryption.dig" --debug-mode=1 --debug-file=debug.txt 
+2024-10-15 17:17:02 - hashcat -m 40 -a 6 
+2024-10-15 17:17:07 - hashcat -m 40 -a 6 "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/bruteforce.dig" 
+2024-10-15 17:17:13 - hashcat -m 40 -a 6 "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/bruteforce.dig" "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/decryption.dig" 
+2024-10-15 17:17:57 - hashcat -m 40 -a 6 "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/bruteforce.dig" "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/decryption.dig ?d?d" 
+2024-10-15 17:19:24 - ./combinator3.bin "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/decryption.dig ?d?d"  > wl_result.txt
+2024-10-15 17:19:25 - hashcat -m 40 -a 6 "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/bruteforce.dig" "D:/PASSWARE EXTRACTIONS/XIAOMI M1908C3JG/decryption.dig ?d?d" 

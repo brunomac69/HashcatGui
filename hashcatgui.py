@@ -1,4 +1,5 @@
 import datetime
+import os
 import re
 import tkinter as tk
 from tkinter import ttk, filedialog
@@ -15,6 +16,7 @@ class HashcatCommandGenerator:
         self.masks= self.load_masks("masks.csv")
         self.parameters= self.load_parameters("parameters.csv")
         self.attacks=self.load_parameters("attacks.csv")
+        self.utils=self.load_utils("utils.csv")
 
 
         # Algoritmo Combobox
@@ -24,12 +26,12 @@ class HashcatCommandGenerator:
         self.combo_algoritm.grid(row=0, column=1, columnspan=3, padx=10, pady=5, sticky=tk.EW)
         self.combo_algoritm.config(width=50)
         self.combo_algoritm["height"] = 30
-        #search algoritm
-         # Botão Add Rule ao lado
+        self.combo_algoritm.bind("<<ComboboxSelected>>", self.set_help)
+        self.combo_algoritm.bind("<Return>", self.filter_algorithms) #activate event key enter/return
         
-        self.btn_add_parameters = tk.Button(master, text="Filter", command=self.filter_algorithms)
-        self.btn_add_parameters.grid(row=0, column=4, padx=5, pady=5,sticky=tk.W)
-
+        #Search algoritm
+        self.btn_filter_algoritms = tk.Button(master, text="Filter", command=lambda: self.filter_algorithms())
+        self.btn_filter_algoritms.grid(row=0, column=4, padx=5, pady=5,sticky=tk.W)
 
         # Ataque Combobox
         self.label_attack = tk.Label(master, text="Type of Attack (-a):")
@@ -38,7 +40,7 @@ class HashcatCommandGenerator:
         self.combo_attack.grid(row=1, column=1, columnspan=3, padx=10, pady=20,sticky=tk.EW)
         self.combo_attack.config(width=50)
         self.combo_attack["height"] = 40
-
+        self.combo_attack.bind("<<ComboboxSelected>>", self.set_help)
 
         # Hash or File
         self.label_hash = tk.Label(master, text="Hash or File:")
@@ -64,6 +66,7 @@ class HashcatCommandGenerator:
         self.combo_mask = ttk.Combobox(master, values=self.load_rules("masks.csv"))
         self.combo_mask.grid(row=3, column=3, padx=5, pady=0, sticky=tk.EW)
         self.combo_mask["height"] = 20
+        self.combo_mask.bind("<<ComboboxSelected>>", self.set_help)
         # Botão Add Rule ao lado
         self.btn_add_mask = tk.Button(master, text="Add Mask", command=self.add_mask)
         self.btn_add_mask.grid(row=3, column=4, padx=5, pady=5,sticky=tk.W)
@@ -98,9 +101,10 @@ class HashcatCommandGenerator:
         self.combo_rules = ttk.Combobox(master, values=self.load_rules("rules.csv"))
         self.combo_rules.grid(row=6, column=3, padx=5, pady=0, sticky=tk.EW)
         self.combo_rules["height"] = 20
+        self.combo_rules.bind("<<ComboboxSelected>>", self.set_help)
        
         # Botão Add Rule ao lado
-        self.btn_add_rule = tk.Button(master, text="Add Rule", command=self.add_rule)
+        self.btn_add_rule = tk.Button(master, text="Add Rule", command=lambda: self.add_rule())
         self.btn_add_rule.grid(row=6, column=4, padx=5, pady=5,sticky=tk.W)
         
 
@@ -111,7 +115,7 @@ class HashcatCommandGenerator:
         self.entry_output.grid(row=7, column=1, padx=10, pady=5,sticky=tk.EW)
         self.btn_browse_output = tk.Button(master, text="Browse", command=lambda: self.browse_file(self.entry_output))
         self.btn_browse_output.grid(row=7, column=2, padx=10, pady=5)
-        self.btn_default_output = tk.Button(master, text="Default", command=self.default_output)
+        self.btn_default_output = tk.Button(master, text="Default", command=lambda: self.default_output())
         self.btn_default_output.grid(row=7, column=3, padx=10, pady=5, sticky=tk.W)
 
         #Other Parameters
@@ -125,8 +129,10 @@ class HashcatCommandGenerator:
         self.combo_parameters = ttk.Combobox(master, values=self.parameters)
         self.combo_parameters.grid(row=8, column=3, padx=5, pady=0, sticky=tk.EW)
         self.combo_parameters["height"] = 20
+        self.combo_parameters.bind("<<ComboboxSelected>>", self.set_help)
+        
         # Botão Add Rule ao lado
-        self.btn_add_parameters = tk.Button(master, text="Add", command=self.add_parameters)
+        self.btn_add_parameters = tk.Button(master, text="Add", command=lambda: self.add_parameters())
         self.btn_add_parameters.grid(row=8, column=4, padx=5, pady=5,sticky=tk.W)
 
 
@@ -136,7 +142,7 @@ class HashcatCommandGenerator:
         self.entry_session = tk.Entry(master, width=30)
         self.entry_session.grid(row=9, column=1, padx=10, pady=5, sticky=tk.EW)
                
-        self.btn_browse_output = tk.Button(master, text="Default", command=self.default_session)
+        self.btn_browse_output = tk.Button(master, text="Default", command= lambda: self.default_session())
         self.btn_browse_output.grid(row=9, column=2, padx=10, pady=5)
 
         # Checkboxes
@@ -157,14 +163,45 @@ class HashcatCommandGenerator:
         self.chk_guess = tk.Checkbutton(master, text="--keep-guessing", variable=self.var_guess)
         self.chk_guess.grid(row=10, column=3, padx=10, pady=5, sticky=tk.W)
 
+        # HASH UTILS Combobox
+        self.label_utils = tk.Label(master, text="HASHCAT- UTILS/PROCESSOR's:")
+        self.label_utils.grid(row=11, column=0, padx=10, pady=5, sticky=tk.W)
+        self.combo_utils = ttk.Combobox(master, values=self.utils)
+        self.combo_utils.grid(row=11, column=1, columnspan=3, padx=10, pady=5, sticky=tk.EW)
+        self.combo_utils.config(width=50)
+        self.combo_utils["height"] = 30
+        self.combo_utils.bind("<<ComboboxSelected>>", self.set_utils)
+        self.combo_utils.bind("<Return>", self.filter_utils)
+
+         #Search algoritm
+        self.btn_filter_utils = tk.Button(master, text="Filter", command=lambda: self.filter_utils())
+        self.btn_filter_utils.grid(row=11, column=4, padx=5, pady=5,sticky=tk.W)
 
         # Botão para gerar comando
-        self.btn_generate = tk.Button(master, text="Generate Command", command=self.generate_command)
-        self.btn_generate.grid(row=11, column=0, columnspan=4, padx=10, pady=20)
+        self.btn_generate = tk.Button(master, text="  Generate Hashcat Command  ", bg="light green", command=lambda: self.generate_command())
+        self.btn_generate.grid(row=12, column=0, columnspan=3, padx=10, pady=20, sticky=tk.E)
+
+         # Botão para limpar comando
+        self.btn_clear = tk.Button(master, text="Clear Command", command=lambda: self.clear_controls())
+        self.btn_clear.grid(row=12, column=3, columnspan=1, padx=10, pady=20, sticky=tk.E)
+        
+         # Botão history
+        self.btn_clear = tk.Button(master, text="History", command=lambda: self.open_file("command_history.txt"))
+        self.btn_clear.grid(row=12, column=4, padx=5, pady=20, sticky=tk.W)
 
         # Textbox para mostrar comando gerado
         self.text_output = tk.Text(master, height=5, width=80)
-        self.text_output.grid(row=12, column=0, columnspan=5, padx=10, pady=5)
+        self.text_output.grid(row=13, column=0, columnspan=5, padx=10, pady=5)
+
+         # HELP 
+        self.label_help_text = tk.Label(master, text="HELP TEXT")
+        self.label_help_text.grid(row=14, column=0, columnspan=5, padx=10, pady=5, sticky=tk.W)
+
+    def open_file(self, file_name):
+        script_dir= os.path.dirname(os.path.realpath(__file__))
+        file_path= os.path.join(script_dir,file_name)
+        if file_path:
+            os.startfile(file_path)
 
      # Carregar algoritmos de um arquivo CSV
     def load_attacks(self, filename):
@@ -187,10 +224,16 @@ class HashcatCommandGenerator:
         return algorithms
     
     # Função para filtrar os algoritmos
-    def filter_algorithms(self):
+    def filter_algorithms(self, event):
         search_term = self.combo_algoritm.get()
         filtered_algorithms = [alg for alg in self.algorithms if search_term.lower() in alg.lower()]
         self.combo_algoritm['values'] = filtered_algorithms
+
+    # Função para filtrar os algoritmos
+    def filter_utils(self, event):
+        search_term = self.combo_utils.get()
+        filtered_utils = [alg for alg in self.utils if search_term.lower() in alg.lower()]
+        self.combo_utils['values'] = filtered_utils
 
     # Carregar regras de um arquivo CSV
     def load_rules(self, filename):
@@ -221,7 +264,23 @@ class HashcatCommandGenerator:
                 if row:
                     algorithms.append(row[0])
         return algorithms
+
+    # Carregar parameters de um arquivo CSV
+    def load_utils(self, filename):
+        utils = []
+        with open(filename, 'r', encoding='utf-8') as file:
+            reader = csv.reader(file)
+            for row in reader:
+                if row:
+                    utils.append(row[0])
+        return utils
     
+    #Set Help Text
+    def set_help(self, event):
+        widget = event.widget
+        selected_value = widget.get()  # Obter o valor selecionado
+        #self.label_help_text.delete(0, tk.END)
+        self.label_help_text.config(text="help: " + selected_value)
 
     # Adicionar parameters ao campo de worlist1
     def add_parameters(self):
@@ -263,6 +322,12 @@ class HashcatCommandGenerator:
     def trim_spaces(self, text):  
             return re.sub(r'\s{2,}', ' ', text)
     
+    #tratar Paths with spaces ""
+    def quote_spaces_paths(self, string):  
+        if ' ' in string:
+            return f'"{string}"'
+        return string
+    
     # Função para gravar o histórico de comandos
     def write_command_to_history(self, command):
         with open("command_history.txt", "a") as file:
@@ -279,20 +344,90 @@ class HashcatCommandGenerator:
         self.entry_output.delete(0, tk.END)
         self.entry_output.insert(tk.END, default)
 
+    def clear_controls(self):
+        self.entry_hash.delete(0, tk.END)
+        self.entry_wordlist1.delete(0, tk.END)
+        self.entry_wordlist2.delete(0, tk.END)
+        self.entry_wordlist3.delete(0, tk.END)
+        self.entry_rules.delete(0, tk.END)
+        self.entry_output.delete(0, tk.END)
+        self.entry_parameters.delete(0, tk.END)
+        self.entry_session.delete(0, tk.END)
+        self.chk_force.deselect
+        self.chk_gpu.deselect
+        self.chk_stdout.deselect
+        self.chk_guess.deselect
+        self.combo_algoritm.set("")
+        self.combo_attack.set("")
+
+    #Set Hashcat Utils and Processors
+    def set_utils(self, event):
+        widget = event.widget
+        selected_value = widget.get()  # Obter o valor selecionado
+        #self.label_help_text.delete(0, tk.END)
+        
+        if ";" in selected_value:
+            help_text=selected_value.split(";")[1]
+        else:help_text=selected_value
+        self.label_help_text.config(text="help: " + help_text)
+
+        #get replacement params
+        alg = self.combo_algoritm.get()
+        attack = self.combo_attack.get()
+        hash_file = self.quote_spaces_paths(self.entry_hash.get())
+        wordlist1 = self.quote_spaces_paths(self.entry_wordlist1.get())
+        wordlist2 = self.quote_spaces_paths(self.entry_wordlist2.get())
+        wordlist3 = self.quote_spaces_paths(self.entry_wordlist3.get())
+        rules = self.entry_rules.get()
+        output = self.quote_spaces_paths(self.entry_output.get())
+
+        if alg: alg="-m " + alg.split(";")[0]
+        if attack: attack= attack.split(";")[0] #prefixo -a já está na combobox
+        if rules: rules= "-r " + rules
+        if output: output= "-o " + output
+
+        
+
+        command= self.combo_utils.get()
+        command= command.split(";")[0]
+
+        if "{alg}" in command:
+            command = command.replace("{alg}", alg)
+        if "{attack}" in command:
+            command = command.replace("{attack}", attack)
+        if "{hash}" in command:
+            command = command.replace("{hash}", hash_file)
+        if "{wl1}" in command:
+            command = command.replace("{wl1}", wordlist1)
+        if "{wl2}" in command:
+            command = command.replace("{wl2}", wordlist2)
+        if "{wl3}" in command:
+            command = command.replace("{wl3}", wordlist3)
+        if "{rules}" in command:
+            command = command.replace("{rules}", rules)
+        if "{output}" in command:
+            command = command.replace("{output}", output)
+
+         # Exibir o comando gerado no textbox
+        self.text_output.delete(1.0, tk.END)
+        self.text_output.insert(tk.END, command)
+
+        # Gravar no histórico
+        self.write_command_to_history(command)
+
+
     # Função para gerar comando hashcat
     def generate_command(self):
         alg = self.combo_algoritm.get()
         attack = self.combo_attack.get()
-        hash_file = self.entry_hash.get()
-        wordlist1 = self.entry_wordlist1.get()
-        wordlist2 = self.entry_wordlist2.get()
-        wordlist3 = self.entry_wordlist3.get()
+        hash_file = self.quote_spaces_paths(self.entry_hash.get())
+        wordlist1 = self.quote_spaces_paths(self.entry_wordlist1.get())
+        wordlist2 = self.quote_spaces_paths(self.entry_wordlist2.get())
+        wordlist3 = self.quote_spaces_paths(self.entry_wordlist3.get())
         rules = self.entry_rules.get()
-        output = self.entry_output.get()
+        output = self.quote_spaces_paths(self.entry_output.get())
         session = self.entry_session.get()
         parameters = self.entry_parameters.get()
-
-     
         
         # Checkboxes
         force_flag = '--force' if self.var_force.get() else ''

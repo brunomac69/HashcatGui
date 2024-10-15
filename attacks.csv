@@ -1,6 +1,6 @@
 -a 0; Wordlist -->  -m 0 -a 0 hash.txt dict1.txt (optional -r rules)
 -a 1; Combinator -->  -m 0 -a 1 hash.txt dict1.txt dict2.txt
--a 3; Mask/ Bruteforce -->  -m 0 -a 3 ?l?d?u (optional
+-a 3; Mask/ Bruteforce -->  -m 0 -a 3 ?l?d?u (optional -r rules)
 -a 6; Wordlist + Mask --> -m 0 -a 6 example.dict ?d?d?d?d (optional -r rules)
 -a 7; Mask + Wordlist --> -m 0 -a 7 ?d?d?d?d example.dict	(optional -r rules)
 -a 9; Association attack -->   use an username, a filename, a hint, or any other pieces of information which could have had an influence in the password generation to attack one specific hash

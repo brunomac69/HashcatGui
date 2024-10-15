@@ -1,0 +1,34 @@
+  
+  INFO:Paceholders {alg}{attack}{hash}{wl1}{wl2}{wl3}{rules}{output} wil be replaced by fields values (optional)
+  
+   <- Hashcat Utils -Combinator -> 
+./combinator3.bin {wl1} {wl2} > wl_result.txt;  combine 2 Wordlists https://github.com/hashcat/hashcat-utils/; combinator
+./combinator3.bin {wl1} {wl2} {wl3} > wl_result.txt;  combine 3 Wordlists https://github.com/hashcat/hashcat-utils/; combinator
+./combinator3.bin {wl1} {wl2} {wl3} > wl_result.txt;   combine 4 Wordlists https://github.com/hashcat/hashcat-utils/; combinator
+  
+  <- Hashcat PRINCE Processor ->
+     <- PRobability INfinite Chained Elements- >
+./pp64 < wordlist.txt ; https://github.com/hashcat/princeprocessor.git ; prince
+./pp64 < {wl1} ; input (wordlist1) wl1 to processsor ; Prince
+./pp64 < {wl1} > wl_prince-output.txt ; input wl1 and output new wl_prince-output.txt; prince
+./pp64 < {wl1} | hashcat -a 0 -m 1000 hash.txt; Direct use with hashcat ; prince
+./pp64 < {wl1} | hashcat {attack} {alg} {hash};  Direct to Hashcat   ; prince
+./pp64 --pw-max=8 < {wl1} | hashcat {attack} {alg} {hash};  Generate Password Max. ; prince
+./pp64 --pw-max=12 < {wl1} | hashcat {attack} {alg} {hash}; Generate Password Min.  ; prince
+./pp64 --pw-min=6 --pw-max=12 --elem-cnt-min=1 --elem-cnt-max=5 < {wl1} | hashcat {attack} {alg} {hash};  All params ; prince
+ 
+  <- Hashcat KWP - KEYWALK processor ->
+./kwp basecharfile.base keymap.keymap route.txt ; https://github.com/hashcat/kwprocessor ; kwp
+./kwp --help; Help Command  ; kwp 
+echo "313" > 313.route, --> create 313.route (3 one dir, 1 another direction, 3 another direction); kwp
+echo "q" > q.base;  -->create file q.base (q key start); kwp
+./kwp q.base ./keymaps/en-us.keymap 313.route; en-us Keyboard ; kwp
+echo "313" > ./rt/313.route && echo "q" > ./bases/q.base && ./kwp q.base ./keymaps/en-us.keymap 313.route; all in one sucess commands &&; kwp
+./kwp ./bases/q.base ./keymaps/en-us.keymap ./rts/313.route -s1; Added Shift Key Option ; kwp
+./kwp ./bases/q.base ./keymaps/en-us.keymap ./rts/313.route -a1; Added Alt GR Key Option ; kwp
+  
+ <-Hashcat PCFG - (Probabilistic Context-Free Grammar) ->
+    <- analisys - Password123! ou John1987@ [word][number][simbol] ->
+python trainer.py -r my_trained_1 -e UTF-8 --coverage 0.2 -t wordlist_trainer.txt; https://github.com/lakiw/pcfg_cracker ; pcfg
+python pcfg_guesser.py -r mytrained_1 > result_wordlist.txt; (1) Trainer, (2) Guesser ; pcfg
+python trainer.py -r {wl1}_trained_1 -e UTF-8 --coverage 0.2 -t {wl1}; --coverage 0.1 to 1.0-> 10% -100% of the data in wl1.txt will be used for training. 0.1 fast wordlist, 1.0 bigger result wordlist ; pcfg
