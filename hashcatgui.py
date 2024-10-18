@@ -1,4 +1,5 @@
 import datetime
+import json
 import os
 import re
 import tkinter as tk
@@ -10,6 +11,10 @@ class HashcatCommandGenerator:
     def __init__(self, master):
         self.master = master
         master.title("Hashcat Command Generator")
+
+        # Close window event to save defaults.json
+        master.protocol("WM_DELETE_WINDOW", self.on_closing)
+
 
         # Carregar algoritmos de um arquivo CSV
         self.algorithms = self.load_algorithms("algorithms.csv")
@@ -197,6 +202,8 @@ class HashcatCommandGenerator:
         self.label_help_text = tk.Label(master, text="HELP TEXT")
         self.label_help_text.grid(row=14, column=0, columnspan=5, padx=10, pady=5, sticky=tk.W)
 
+        self.load_defaults()
+
     def open_file(self, file_name):
         script_dir= os.path.dirname(os.path.realpath(__file__))
         file_path= os.path.join(script_dir,file_name)
@@ -315,20 +322,21 @@ class HashcatCommandGenerator:
     # Função para buscar caminho do arquivo
     def browse_file(self, entry_field):
         file_path = filedialog.askopenfilename()
+        file_path = self.quote_spaces_paths(file_path) #Quote string paths if have spaces.
         entry_field.delete(0, tk.END)
         entry_field.insert(0, file_path)
     
-    #função para remover mais que dois espaços.
+    #Remove 2 or more spaces from command text
     def trim_spaces(self, text):  
             return re.sub(r'\s{2,}', ' ', text)
     
-    #tratar Paths with spaces ""
+    #tQuote string paths if have spaces"""
     def quote_spaces_paths(self, string):  
         if ' ' in string:
             return f'"{string}"'
         return string
     
-    # Função para gravar o histórico de comandos
+    # Save Command history
     def write_command_to_history(self, command):
         with open("command_history.txt", "a") as file:
             timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -374,12 +382,12 @@ class HashcatCommandGenerator:
         #get replacement params
         alg = self.combo_algoritm.get()
         attack = self.combo_attack.get()
-        hash_file = self.quote_spaces_paths(self.entry_hash.get())
-        wordlist1 = self.quote_spaces_paths(self.entry_wordlist1.get())
-        wordlist2 = self.quote_spaces_paths(self.entry_wordlist2.get())
-        wordlist3 = self.quote_spaces_paths(self.entry_wordlist3.get())
+        hash_file = self.entry_hash.get()
+        wordlist1 = self.entry_wordlist1.get()
+        wordlist2 = self.entry_wordlist2.get()
+        wordlist3 = self.entry_wordlist3.get()
         rules = self.entry_rules.get()
-        output = self.quote_spaces_paths(self.entry_output.get())
+        output = self.entry_output.get()
 
         if alg: alg="-m " + alg.split(";")[0]
         if attack: attack= attack.split(";")[0] #prefixo -a já está na combobox
@@ -387,7 +395,6 @@ class HashcatCommandGenerator:
         if output: output= "-o " + output
 
         
-
         command= self.combo_utils.get()
         command= command.split(";")[0]
 
@@ -420,12 +427,12 @@ class HashcatCommandGenerator:
     def generate_command(self):
         alg = self.combo_algoritm.get()
         attack = self.combo_attack.get()
-        hash_file = self.quote_spaces_paths(self.entry_hash.get())
-        wordlist1 = self.quote_spaces_paths(self.entry_wordlist1.get())
-        wordlist2 = self.quote_spaces_paths(self.entry_wordlist2.get())
-        wordlist3 = self.quote_spaces_paths(self.entry_wordlist3.get())
+        hash_file = self.entry_hash.get()
+        wordlist1 = self.entry_wordlist1.get()
+        wordlist2 = self.entry_wordlist2.get()
+        wordlist3 = self.entry_wordlist3.get()
         rules = self.entry_rules.get()
-        output = self.quote_spaces_paths(self.entry_output.get())
+        output = self.entry_output.get()
         session = self.entry_session.get()
         parameters = self.entry_parameters.get()
         
@@ -459,6 +466,55 @@ class HashcatCommandGenerator:
         #    pyperclip.copy(command)
         #except Exception as e:
         #    self.write_command_to_history(f"ERROR: Copy to clipboard: {e}")
+
+    def on_closing(self):
+            # Salvando os valores atuais antes de fechar
+            self.save_defaults()
+            root.destroy()
+
+    def save_defaults(self):
+        # Obter valores de widgets
+        values = {
+            'algoritm': self.combo_algoritm.get(),
+            'attack': self.combo_attack.get(),
+            'hash_file': self.entry_hash.get(),
+            'wordlist1': self.entry_wordlist1.get(),
+            'wordlist2': self.entry_wordlist2.get(),
+            'wordlist3': self.entry_wordlist3.get(),
+            'rules': self.entry_rules.get(),
+            'output': self.entry_output.get(),
+            'parameters': self.entry_parameters.get(),
+            'session': self.entry_session.get(),
+            'force': self.var_force.get(),
+            'gpu': self.var_gpu.get(),
+            'stdout': self.var_stdout.get(),
+            'guess': self.var_guess.get(),
+        }
+
+        # Salvar no arquivo JSON
+        with open("defaults.json", "w") as f:
+            json.dump(values, f)
+
+    def load_defaults(self):
+        if os.path.exists("defaults.json"):
+            with open("defaults.json", "r") as f:
+                values = json.load(f)
+                self.combo_algoritm.set(values.get('algoritm', ''))
+                self.combo_attack.set(values.get('attack', ''))
+                self.entry_hash.insert(0, values.get('hash_file', ''))
+                self.entry_wordlist1.insert(0, values.get('wordlist1', ''))
+                self.entry_wordlist2.insert(0, values.get('wordlist2', ''))
+                self.entry_wordlist3.insert(0, values.get('wordlist3', ''))
+                self.entry_rules.insert(0, values.get('rules', ''))
+                self.entry_output.insert(0, values.get('output', ''))
+                self.entry_parameters.insert(0, values.get('parameters', ''))
+                self.entry_session.insert(0, values.get('session', ''))
+                self.var_force.set(values.get('force', 0))
+                self.var_gpu.set(values.get('gpu', 0))
+                self.var_stdout.set(values.get('stdout', 0))
+                self.var_guess.set(values.get('guess', 0))
+
+
 
 if __name__ == "__main__":
     root = tk.Tk()

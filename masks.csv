@@ -2,8 +2,12 @@
  << MASK FILES >>
 ~/tools/hashcat/masks/hashcat-default.hcmask
 ~/tools/hashcat/masks/hex.mask; Mascara Hex
- << SAVED WORDLISTS/DIC >> 
+  
+  << SAVED WORDLISTS/DIC >> 
 /user/share/wordlists/
+~/wl/rockyou.txt
+~/wl/rockyou-short.txt
+  
   << SAMPLE MASKS >>
 ?l; abcdefghijklmnopqrstuvwxyz
 ?u; ABCDEFGHIJKLMNOPQRSTUVWXYZ
