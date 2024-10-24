@@ -394,6 +394,7 @@ class HashcatCommandGenerator:
         wordlist3 = self.entry_wordlist3.get()
         rules = self.entry_rules.get()
         output = self.entry_output.get()
+        session = self.entry_session.get()
 
         if alg: alg="-m " + alg.split(";")[0]
         if attack: attack= attack.split(";")[0] #prefixo -a já está na combobox
@@ -420,6 +421,8 @@ class HashcatCommandGenerator:
             command = command.replace("{rules}", rules)
         if "{output}" in command:
             command = command.replace("{output}", output)
+        if "{session}" in command:
+            command = command.replace("{session}", output)
 
          # Exibir o comando gerado no textbox
         self.text_output.delete(1.0, tk.END)
@@ -526,14 +529,25 @@ class HashcatCommandGenerator:
             command_text = self.text_output.get("1.0", END).strip()
         
         if command_text:
-            # Detectar o sistema operacional
+            # Detect SO
             if platform.system() == "Windows":
-                # Windows: Executa o comando no Prompt de Comando em uma nova janela
+                # Windows: new window command
                 subprocess.Popen(['cmd', '/c', 'start', 'cmd', '/k', command_text])  # Abre nova janela e executa
             else:
-                # Linux ou Mac: Abre o terminal e executa o comando em uma nova janela
-                # Testar para diferentes terminais (gnome-terminal, konsole, xfce4-terminal)
-                subprocess.Popen(['gnome-terminal', '--', 'bash', '-c', f'{command_text}; exec bash'])  # Nova janela sem bloquear
+                # Linux ou Mac: new window command
+                terminals = ['qterminal', 'gnome-terminal', 'konsole', 'xfce4-terminal', 'xterm']
+                terminal_found = False
+
+                for terminal in terminals:
+                    try:
+                        subprocess.Popen([terminal, '-e', f'bash -c "{command_text}; exec bash"'])
+                        terminal_found = True
+                        break
+                    except FileNotFoundError:
+                        continue
+
+                if not terminal_found:
+                    print("Error: Sorry, Terminal not found, add it manualy to terminals array.")
 
 
 if __name__ == "__main__":

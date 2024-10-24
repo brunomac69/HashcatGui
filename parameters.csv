@@ -1,11 +1,9 @@
--hh; Full Help
---help , Help
---help | grep -i ntlm; Filtrar NTLM
--hh |grep -i brain ; Filter Brain Commands
+ <-- Generic -->
 --potfile-disable; Disable hashcat.potfile to save known hashs
 --debug-mode=1 --debug-file=debug.txt;Ativa depuração rastrear regras usadas / File gravação
 --identify ; Identify the hash type of a file.
-  
+--restore-file=my_restore_file.hccapx ; Specifies a custom restore file for interrupted sessions.   
+
  <<-- Performance -->>
 -D1 ; CPU
 -D2 ; GPU
@@ -20,8 +18,8 @@
   
   <<-- ENCODINGS -->>
 file -i your_file.txt;  Detect encoding Linux
-iconv -f utf-8 -t utf-8 your_file.txt > converted_file.txt ; Convert Encoding linux
-
+iconv -l ; all encoding list
+iconv -f utf-8 -t utf-8 your_file.txt > converted_file.txt ; Convert Encoding linux with iconv
 --encoding-from=utf-8 --encoding-to=utf-8 ; Universal encoding used globally to represent almost all characters, including ASCII.
 --encoding-from=utf-16le --encoding-to=utf-8 ; UTF-16 encoding of 2 bytes per character in Little Endian order, common in Windows files.
 --encoding-from=utf-16be --encoding-to=utf-8 ; Big Endian version of UTF-16, used in systems that do not follow Little Endian order.
