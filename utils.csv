@@ -32,3 +32,29 @@ echo "313" > ./rt/313.route && echo "q" > ./bases/q.base && ./kwp q.base ./keyma
 python trainer.py -r my_trained_1 -e UTF-8 --coverage 0.2 -t wordlist_trainer.txt; https://github.com/lakiw/pcfg_cracker ; pcfg
 python pcfg_guesser.py -r mytrained_1 > result_wordlist.txt; (1) Trainer, (2) Guesser ; pcfg
 python trainer.py -r {wl1}_trained_1 -e UTF-8 --coverage 0.2 -t {wl1}; --coverage 0.1 to 1.0-> 10% -100% of the data in wl1.txt will be used for training. 0.1 fast wordlist, 1.0 bigger result wordlist ; pcfg
+
+   <- MARKOV Statistics ->
+./hcstat2gen.bin outfile < dictionary ; --markov-hcstat A tool for generating custom Markov statistics
+./hcstat2gen.bin hcstat2_output_raw.bin </path/to/dict.txt
+lzma --compress --format=raw --stdout -9e hcstat2_output_raw.bin > output.hcstat2 
+
+
+  <- Hashcat Brain -z -> 
+hashcat -hh |grep -i brain
+hashcat --brain-server --brain-password=demo --brain-port=8888
+hashcat --brain-server --brain-password=pwd --brain-port=8888 --brain-server-timer=10 ; start brain server
+hashcat --brain-server --brain-password=pwd --brain-server-port=8888 --brain-server-timer=10 --brain-session-whitelist=session_whitelist; start brain server with whitelist only sessions allowed | Clients have --brain-session=session_whitelist
+nohup hashcat --brain-server --brain-password=pwd --brain-server-port=8888 &   ; continue server even when terminal is closed (linux)
+hashcat --brain-client --brain-password=demo=pwd --brain-client-feature=1 --brain-server <ip> --brain-server-port <port> --brain-client-id <client_id> {attack} {alg} {hash} {wl1}; CLIENT -> brain-client-feature=1 disables duplicate candidates (slow hashs)
+hashcat --brain-client --brain-password=demo=pwd --brain-client-feature=2 --brain-server <ip> --brain-server-port <port> --brain-client-id <client_id> {attack} {alg} {hash} {wl1}; CLIENT -> brain-client-feature=2 enables sessions
+hashcat --brain-client --brain-password=demo=pwd --brain-client-feature=3 --brain-server <ip> --brain-server-port <port> --brain-client-id <client_id> {attack} {alg} {hash} {wl1}; CLIENT -> brain-client-feature=3 enables sessions without duplicate candidates
+
+
+  <-Other Tools-->
+hashcat -z --brain-password=demo --brain-client-feature=1 --runtime=15 -a 0 -m 14800 iTunes11.hash ~/wl/rockyou.txt ; Activates
+hashcat ~/wl/example.txt -r ~/rules/best64.rule --stdout -o duplicates.txt ; Find candidates after rukes
+hashcat {wl1} -r ~/rules/best64.rule --stdout -o {output} ; Find candidates after Rules
+cat duplicates.txt |wc - l ; Count lines   
+sort -u duplicates.txt | wc -l  ; Count Duplicates
+hashcat -z --brain-password=demo --brain-client-feature=3 --runtime=30 {attack} {alg} {hash} {wl1} -r ~/rules/best64.rule  ; less 28% candidates (removed duplicates with --brain-client-feature=3
+

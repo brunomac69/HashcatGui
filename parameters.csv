@@ -1,5 +1,66 @@
--h; Help
+-hh; Full Help
 --help , Help
 --help | grep -i ntlm; Filtrar NTLM
+-hh |grep -i brain ; Filter Brain Commands
 --potfile-disable; Disable hashcat.potfile to save known hashs
 --debug-mode=1 --debug-file=debug.txt;Ativa depuração rastrear regras usadas / File gravação
+--identify ; Identify the hash type of a file.
+  
+ <<-- Performance -->>
+-D1 ; CPU
+-D2 ; GPU
+-b -D1 ;  -b Benchmark CPU -D1
+-b -D2 ;  -b Benchmark GPU
+-I ; hashcat -I - to see the ID number of each device CPU GPU device
+--username ;  Indicates that the hashes contain usernames.
+-O ; Enables the optimized kernel for faster processing (with some limitations).
+-S ; --slow-candidates-reduce reduce number of candidates generated/cycle, better with slower hashes
+--markov-threshold ; eg. --markov-threshold 2
+--markov-classic ; eg.  --markov-classic 2222?d
+  
+  <<-- ENCODINGS -->>
+file -i your_file.txt;  Detect encoding Linux
+iconv -f utf-8 -t utf-8 your_file.txt > converted_file.txt ; Convert Encoding linux
+
+--encoding-from=utf-8 --encoding-to=utf-8 ; Universal encoding used globally to represent almost all characters, including ASCII.
+--encoding-from=utf-16le --encoding-to=utf-8 ; UTF-16 encoding of 2 bytes per character in Little Endian order, common in Windows files.
+--encoding-from=utf-16be --encoding-to=utf-8 ; Big Endian version of UTF-16, used in systems that do not follow Little Endian order.
+--encoding-from=iso-8859-1 --encoding-to=utf-8 ; Encoding used in Western Europe, supports Latin and accented characters.
+--encoding-from=iso-8859-2 --encoding-to=utf-8 ; Encoding used in Central and Eastern Europe for languages like Polish and Czech.
+--encoding-from=iso-8859-3 --encoding-to=utf-8 ; Encoding used for Southern European languages, such as Maltese and Turkish.
+--encoding-from=iso-8859-4 --encoding-to=utf-8 ; Used in Baltic languages, such as Latvian and Lithuanian.
+--encoding-from=iso-8859-5 --encoding-to=utf-8 ; Encoding used for Cyrillic characters (Russian, Bulgarian, Serbian).
+--encoding-from=iso-8859-6 --encoding-to=utf-8 ; Used for the Arabic alphabet.
+--encoding-from=iso-8859-7 --encoding-to=utf-8 ; Encoding for the Greek alphabet.
+--encoding-from=iso-8859-8 --encoding-to=utf-8 ; Encoding used for the Hebrew alphabet.
+--encoding-from=iso-8859-9 --encoding-to=utf-8 ; Latin-1 variant adapted for the Turkish language.
+--encoding-from=iso-8859-10 --encoding-to=utf-8 ; Used for Nordic languages (Icelandic, Norwegian, etc.).
+--encoding-from=iso-8859-13 --encoding-to=utf-8 ; Used for Baltic languages.
+--encoding-from=iso-8859-14 --encoding-to=utf-8 ; Used for Gaelic.
+--encoding-from=iso-8859-15 --encoding-to=utf-8 ; Update of ISO-8859-1, includes the Euro symbol (€).
+--encoding-from=iso-8859-16 --encoding-to=utf-8 ; Used for languages in Southeastern Europe.
+--encoding-from=ascii --encoding-to=utf-8 ; 7-bit encoding, standard for English and other languages without accented characters.
+--encoding-from=cp850 --encoding-to=utf-8 ; Code page used in MS-DOS systems for Western languages.
+--encoding-from=cp437 --encoding-to=utf-8 ; Original IBM PC encoding, includes graphics and standard ASCII symbols.
+--encoding-from=cp1250 --encoding-to=utf-8 ; Windows encoding for Central European languages.
+--encoding-from=cp1251 --encoding-to=utf-8 ; Windows encoding for the Cyrillic alphabet (Russian, Bulgarian).
+--encoding-from=cp1252 --encoding-to=utf-8 ; Windows encoding for Western European languages.
+--encoding-from=cp1253 --encoding-to=utf-8 ; Windows encoding for Greek.
+--encoding-from=cp1254 --encoding-to=utf-8 ; Windows encoding for Turkish.
+--encoding-from=cp1255 --encoding-to=utf-8 ; Windows encoding for Hebrew.
+--encoding-from=cp1256 --encoding-to=utf-8 ; Windows encoding for Arabic.
+--encoding-from=cp1257 --encoding-to=utf-8 ; Windows encoding for Baltic languages.
+--encoding-from=cp1258 --encoding-to=utf-8 ; Windows encoding for Vietnamese.
+--encoding-from=cp866 --encoding-to=utf-8 ; MS-DOS encoding for Slavic languages (Russian, Bulgarian).
+--encoding-from=cp932 --encoding-to=utf-8 ; Windows encoding for Japanese (Shift-JIS).
+--encoding-from=cp936 --encoding-to=utf-8 ; Windows encoding for Simplified Chinese (GBK).
+--encoding-from=cp949 --encoding-to=utf-8 ; Windows encoding for Korean.
+--encoding-from=cp950 --encoding-to=utf-8 ; Windows encoding for Traditional Chinese (Big5).
+--encoding-from=koi8-r --encoding-to=utf-8 ; Encoding used for the Cyrillic alphabet (Russian).
+--encoding-from=koi8-u --encoding-to=utf-8 ; Encoding for the Ukrainian Cyrillic alphabet.
+--encoding-from=macroman --encoding-to=utf-8 ; Encoding used in Macintosh systems for Western languages.
+--encoding-from=maccentraleurope --encoding-to=utf-8 ; Encoding for Central European languages in Macintosh systems.
+--encoding-from=maccyrillic --encoding-to=utf-8 ; Encoding used for the Cyrillic alphabet in Macintosh systems.
+--encoding-from=macturkish --encoding-to=utf-8 ; Encoding for Turkish in Macintosh systems.
+--encoding-from=macgreek --encoding-to=utf-8 ; Encoding used for Greek in Macintosh systems.
+--encoding-from=maciceland --encoding-to=utf-8 ; Encoding for Icelandic in Macintosh systems.

@@ -35,7 +35,7 @@ class HashcatCommandGenerator:
         self.combo_algoritm.bind("<Return>", self.filter_algorithms) #activate event key enter/return
         
         #Search algoritm
-        self.btn_filter_algoritms = tk.Button(master, text="Filter", command=lambda: self.filter_algorithms())
+        self.btn_filter_algoritms = tk.Button(master, text="Filter", command=lambda: self.filter_algorithms(""))
         self.btn_filter_algoritms.grid(row=0, column=4, padx=5, pady=5,sticky=tk.W)
 
         # Ataque Combobox
@@ -179,7 +179,7 @@ class HashcatCommandGenerator:
         self.combo_utils.bind("<Return>", self.filter_utils)
 
          #Search algoritm
-        self.btn_filter_utils = tk.Button(master, text="Filter", command=lambda: self.filter_utils())
+        self.btn_filter_utils = tk.Button(master, text="Filter", command=lambda: self.filter_utils(""))
         self.btn_filter_utils.grid(row=11, column=4, padx=5, pady=5,sticky=tk.W)
 
         # Botão para gerar comando
