@@ -1,5 +1,7 @@
   
   INFO:Paceholders {alg}{attack}{hash}{wl1}{wl2}{wl3}{rules}{output} wil be replaced by fields values (optional)
+   <-- HASHCAT UTILS -->
+hashcat --show {alg} {hash}   ;  Show cracked hashs (potfile)
   
    <- Hashcat Utils -Combinator -> 
 ./combinator3.bin {wl1} {wl2} > wl_result.txt;  combine 2 Wordlists https://github.com/hashcat/hashcat-utils/; combinator
@@ -57,4 +59,9 @@ hashcat {wl1} -r ~/rules/best64.rule --stdout -o {output} ; Find candidates afte
 cat duplicates.txt |wc - l ; Count lines   
 sort -u duplicates.txt | wc -l  ; Count Duplicates
 hashcat -z --brain-password=demo --brain-client-feature=3 --runtime=30 {attack} {alg} {hash} {wl1} -r ~/rules/best64.rule  ; less 28% candidates (removed duplicates with --brain-client-feature=3
+  
+  <-- Keyspace -->
+hashcat {wl1} --keyspace, calculate number of combinations
+hashcat {alg}{attack}{hash}{wl1}{wl2}{wl3}{rules} --keyspace, calculate number of combinations
 
+  

@@ -3,8 +3,10 @@ import json
 import os
 import re
 import tkinter as tk
-from tkinter import ttk, filedialog
+from tkinter import END, ttk, filedialog
 import csv
+import platform
+import subprocess
 #import paperclip
 
 class HashcatCommandGenerator:
@@ -73,7 +75,7 @@ class HashcatCommandGenerator:
         self.combo_mask["height"] = 20
         self.combo_mask.bind("<<ComboboxSelected>>", self.set_help)
         # Botão Add Rule ao lado
-        self.btn_add_mask = tk.Button(master, text="Add Mask", command=self.add_mask)
+        self.btn_add_mask = tk.Button(master, text="Add", command=self.add_mask)
         self.btn_add_mask.grid(row=3, column=4, padx=5, pady=5,sticky=tk.W)
         
 
@@ -186,13 +188,17 @@ class HashcatCommandGenerator:
         self.btn_generate = tk.Button(master, text="  Generate Hashcat Command  ", bg="light green", command=lambda: self.generate_command())
         self.btn_generate.grid(row=12, column=0, columnspan=3, padx=10, pady=20, sticky=tk.E)
 
+        # Botão para limpar comando
+        self.btn_execute_console = tk.Button(master, text="Execute Command", bg="light salmon", command=lambda: self.execute_command(""))
+        self.btn_execute_console.grid(row=12, column=3, columnspan=1, padx=10, pady=20, sticky=tk.W)
+
          # Botão para limpar comando
         self.btn_clear = tk.Button(master, text="Clear Command", command=lambda: self.clear_controls())
         self.btn_clear.grid(row=12, column=3, columnspan=1, padx=10, pady=20, sticky=tk.E)
         
          # Botão history
-        self.btn_clear = tk.Button(master, text="History", command=lambda: self.open_file("command_history.txt"))
-        self.btn_clear.grid(row=12, column=4, padx=5, pady=20, sticky=tk.W)
+        self.btn_history = tk.Button(master, text="History", command=lambda: self.open_file("command_history.txt"))
+        self.btn_history.grid(row=12, column=4, padx=5, pady=20, sticky=tk.W)
 
         # Textbox para mostrar comando gerado
         self.text_output = tk.Text(master, height=5, width=80)
@@ -514,6 +520,20 @@ class HashcatCommandGenerator:
                 self.var_stdout.set(values.get('stdout', 0))
                 self.var_guess.set(values.get('guess', 0))
 
+
+    def execute_command(self, command_text):
+        if not command_text:
+            command_text = self.text_output.get("1.0", END).strip()
+        
+        if command_text:
+            # Detectar o sistema operacional
+            if platform.system() == "Windows":
+                # Windows: Executa o comando no Prompt de Comando em uma nova janela
+                subprocess.Popen(['cmd', '/c', 'start', 'cmd', '/k', command_text])  # Abre nova janela e executa
+            else:
+                # Linux ou Mac: Abre o terminal e executa o comando em uma nova janela
+                # Testar para diferentes terminais (gnome-terminal, konsole, xfce4-terminal)
+                subprocess.Popen(['gnome-terminal', '--', 'bash', '-c', f'{command_text}; exec bash'])  # Nova janela sem bloquear
 
 
 if __name__ == "__main__":
