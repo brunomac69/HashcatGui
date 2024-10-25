@@ -1,8 +1,15 @@
- <-- Generic -->
+   <<-- INFO:Paceholders {alg}{attack}{hash}{wl1}{wl2}{wl3}{rules}{output}{session} will be replaced by fields values (optional) -->>
+   <<-- Generic -->>
 --potfile-disable; Disable hashcat.potfile to save known hashs
---debug-mode=1 --debug-file=debug.txt;Ativa depuração rastrear regras usadas / File gravação
---identify ; Identify the hash type of a file.
---restore-file=my_restore_file.hccapx ; Specifies a custom restore file for interrupted sessions.   
+--debug-mode=1 --debug-file=debug.txt ;  Ativa depuração rastrear regras usadas / File gravação
+--restore-file=my_restore_file.hccapx ;  Specifies a custom restore file for interrupted sessions. 
+--session={session} --status ;   Displays the status of a specific session named "my_session."  
+--session={session} --status-timer=10 ;   Sets the timer to display the status of a specific session every 10 seconds.
+--debug-mode=1 --debug-file= {output} ;  Enables debug mode to show detailed information about the cracking process.
+--debug-mode=2 --debug-file= {output} ;  Enables more verbose debug mode with additional information.
+--debug-mode=3 --debug-file= {output} ;  Save both cracked passwords and rule-generated passwords.
+--quiet ;  Runs Hashcat in quiet mode, suppressing output messages.
+--force ;  Forces Hashcat to run despite potential warnings or issues. 
 
  <<-- Performance -->>
 -D1 ; CPU

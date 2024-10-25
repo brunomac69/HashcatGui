@@ -1,23 +1,17 @@
-  
-  INFO:Paceholders {alg}{attack}{hash}{wl1}{wl2}{wl3}{rules}{output}{session} wil be replaced by fields values (optional)
+     
+   <--INFO:Paceholders {alg}{attack}{hash}{wl1}{wl2}{wl3}{rules}{output}{session} wil be replaced by fields values (optional)
    <-- HASHCAT UTILS -->
-haschat --help ;  Help
+hashcat --help ;  Help
 hashcat --help | grep -i ntlm;  Filter NTLM
 hashcat  -hh   |grep -i brain ;  Filter Brain Commands
 hashcat --show {alg} {hash}   ;   Show cracked hashs (potfile)
+hashcat --identify {hash} ; Identify the hash type of a file.
 hashcat --version ; Shows the current version of Hashcat installed.
 hashcat --benchmark ;  Runs a benchmark to evaluate the performance of the cracking setup.
 hashcat --benchmark-all ;  Runs a benchmark for all supported hash types to evaluate performance.
-hashcat --debug-mode=1 ;  Enables debug mode to show detailed information about the cracking process.
-hashcat --debug-mode=2 ;  Enables more verbose debug mode with additional information.
-hashcat --session={session} --status ;  Displays the status of a specific session named "my_session."
 hashcat --session={session} --restore ;  Restores a specific session named "my_session."
-hashcat --session={session} --status-timer=10 ;  Sets the timer to display the status of a specific session every 10 seconds.
-hashcat --quiet ;  Runs Hashcat in quiet mode, suppressing output messages.
-hashcat --show hash.txt ;  Displays the cracked passwords from the specified hash file.
-hashcat --restore ;  Restores a previously interrupted session.
-hashcat --force ;  Forces Hashcat to run despite potential warnings or issues.
-hashcat --status ;  Displays the current status of the cracking process.
+hashcat --session={session} --show {hash} ;  show cracked password (potfile) a specific session named "my_session."
+hashcat --show {hash} ;  Displays the cracked passwords from the specified hash file.
 hashcat --potfile-path=custom_pot.txt ;  Specifies a custom path for the potfile that stores cracked passwords.
 hashcat --stdout ;  Outputs the generated candidates to standard output instead of running a cracking session.
 hashcat --hash-type ;  Lists all supported hash types and their corresponding modes.
@@ -36,7 +30,7 @@ hashcat --hwmon-disable ;  Disables hardware monitoring to improve performance.
 hashcat --potfile-path=/path/to/potfile.txt ;  Uses a specified potfile to save cracked hashes.
 hashcat --opencl-device-types=1 ;  Specifies the types of devices to use for cracking (1 = GPU, 2 = CPU).
 hashcat --attack-mode=1 --hash-type=0 --stdout ;  Generates and displays candidate passwords without running a cracking session.
-  
+    
    <- Hashcat Utils -Combinator -> 
 ./combinator3.bin {wl1} {wl2} > wl_result.txt;  combine 2 Wordlists https://github.com/hashcat/hashcat-utils/; combinator
 ./combinator3.bin {wl1} {wl2} {wl3} > wl_result.txt;  combine 3 Wordlists https://github.com/hashcat/hashcat-utils/; combinator
