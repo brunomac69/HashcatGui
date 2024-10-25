@@ -1,7 +1,7 @@
 
 # Hashcat Command Generator
 
-![Hashcat Command Generator Screenshot](screenshot_1.png.png)
+![Hashcat Command Generator Screenshot](screenshot_1.png)
 
 This Python-based tool provides a graphical interface (GUI) to generate and execute **Hashcat** commands. It is designed to simplify the process of setting up and running Hashcat attacks by offering easy-to-use input fields, checkboxes, and buttons for customizing your commands.
 Sorry some comments are in Portuguese. Upsss.
