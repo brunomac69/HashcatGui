@@ -278,8 +278,8 @@ class HashcatCommandGenerator:
         self.btn_history.grid(row=12, column=4, padx=5, pady=20, sticky=tk.W)
 
         # Textbox para mostrar comando gerado
-        self.text_output = tk.Text(master, height=5, width=80)
-        self.text_output.grid(row=13, column=0, columnspan=5, padx=10, pady=5)
+        self.text_output = tk.Text(master, height=5)
+        self.text_output.grid(row=13, column=0, columnspan=5, padx=10, pady=5, sticky=tk.EW)
 
          # HELP 
         self.label_help_text = tk.Label(master, text="HASHCAT LOCATION --->>> : Hashcat Location is harcoded in line 20 --> self.hashcat_location = './hashcat'")
