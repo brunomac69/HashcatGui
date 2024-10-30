@@ -32,6 +32,7 @@ Usage:
 Run the Python script to start the application.
 """
 
+#!/usr/bin/env python3
 
 import datetime
 import json
@@ -483,6 +484,7 @@ class HashcatCommandGenerator:
         if attack: attack= attack.split(";")[0] #prefixo -a já está na combobox
         if rules: rules= "-r " + rules
         if output: output= "-o " + output
+        if session: session = "--session" + session
 
         
         command= self.combo_utils.get()
@@ -495,7 +497,7 @@ class HashcatCommandGenerator:
         if "./pp64" in command:
             command = command.replace("./pp64", self.pp64_location)    #place word pp64 with pp64 location
         if "./kwp" in command:
-            command = command.replace("./kwp", self.hashcat_location)    #place word ./kwp with ./kwp location
+            command = command.replace("./kwp", self.kwp_location)    #place word ./kwp with ./kwp location
         if "{alg}" in command:
             command = command.replace("{alg}", alg)
         if "{attack}" in command:
